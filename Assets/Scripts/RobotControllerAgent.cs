@@ -14,9 +14,7 @@ public class RobotControllerAgent : Agent
     public Cup _cup;
 
     public List<Axis> _axis = new List<Axis>();
-
-    //private static int s_count = 0;
-
+    
     public Material _s_material;    // for success
     public Material _f_material;    // for failed
 
@@ -28,40 +26,22 @@ public class RobotControllerAgent : Agent
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        // don't rotate in default
-//         actionsOut.DiscreteActions.Array.SetValue(0, 0);
-//         actionsOut.DiscreteActions.Array.SetValue(0, 1);
-//         actionsOut.DiscreteActions.Array.SetValue(0, 2);
-//         actionsOut.DiscreteActions.Array.SetValue(0, 3);
+        actionsOut.DiscreteActions.Array.SetValue(0, 0);
+        actionsOut.DiscreteActions.Array.SetValue(0, 1);
+        actionsOut.DiscreteActions.Array.SetValue(0, 2);
+        actionsOut.DiscreteActions.Array.SetValue(0, 3);
 
         // Rotate
-        if (Input.GetKey(KeyCode.Q)) actionsOut.DiscreteActions.Array.SetValue(0, 0);   // Axis0 +
-        else if (Input.GetKey(KeyCode.A)) actionsOut.DiscreteActions.Array.SetValue(1, 0);   // Axis0 -
+        if (Input.GetKey(KeyCode.Q)) actionsOut.DiscreteActions.Array.SetValue(1, 0);   // Axis0 +
+        else if (Input.GetKey(KeyCode.A)) actionsOut.DiscreteActions.Array.SetValue(2, 0);   // Axis0 -
 
-        if (Input.GetKey(KeyCode.W)) actionsOut.DiscreteActions.Array.SetValue(0, 1);   // Axis1 +
-        else if (Input.GetKey(KeyCode.S)) actionsOut.DiscreteActions.Array.SetValue(1, 1);   // Axis1 -
+        if (Input.GetKey(KeyCode.W)) actionsOut.DiscreteActions.Array.SetValue(1, 1);   // Axis1 +
+        else if (Input.GetKey(KeyCode.S)) actionsOut.DiscreteActions.Array.SetValue(2, 1);   // Axis1 -
 
-        if (Input.GetKey(KeyCode.E)) actionsOut.DiscreteActions.Array.SetValue(0, 2);   // Axis3 +
-        else if (Input.GetKey(KeyCode.D)) actionsOut.DiscreteActions.Array.SetValue(1, 2);   // Axis3 -
+        if (Input.GetKey(KeyCode.E)) actionsOut.DiscreteActions.Array.SetValue(1, 2);   // Axis3 +
+        else if (Input.GetKey(KeyCode.D)) actionsOut.DiscreteActions.Array.SetValue(2, 2);   // Axis3 -
 
-        if (Input.GetKey(KeyCode.R)) actionsOut.DiscreteActions.Array.SetValue(0, 3);   // Axis6 +
-
-//         actionsOut.ContinuousActions.Array.SetValue(0, 0);
-//         actionsOut.ContinuousActions.Array.SetValue(0, 1);
-//         actionsOut.ContinuousActions.Array.SetValue(0, 2);
-//         actionsOut.ContinuousActions.Array.SetValue(0, 3);
-// 
-//         // Rotate
-//         if (Input.GetKey(KeyCode.Q)) actionsOut.ContinuousActions.Array.SetValue(0.3f, 0);   // Axis0 +
-//         else if (Input.GetKey(KeyCode.A)) actionsOut.ContinuousActions.Array.SetValue(-0.3f, 0);   // Axis0 -
-// 
-//         if (Input.GetKey(KeyCode.W)) actionsOut.ContinuousActions.Array.SetValue(0.5f, 1);   // Axis1 +
-//         else if (Input.GetKey(KeyCode.S)) actionsOut.ContinuousActions.Array.SetValue(-0.5f, 1);   // Axis1 -
-// 
-//         if (Input.GetKey(KeyCode.E)) actionsOut.ContinuousActions.Array.SetValue(0.7f, 2);   // Axis3 +
-//         else if (Input.GetKey(KeyCode.D)) actionsOut.ContinuousActions.Array.SetValue(-0.7f, 2);   // Axis3 -
-// 
-//         if (Input.GetKey(KeyCode.R)) actionsOut.ContinuousActions.Array.SetValue(1f, 3);   // Axis6 +
+        if (Input.GetKey(KeyCode.R)) actionsOut.DiscreteActions.Array.SetValue(1, 3);   // Axis6 +
     }
 
     public override void OnEpisodeBegin()
@@ -71,25 +51,22 @@ public class RobotControllerAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        if (actions.DiscreteActions[0] == 0) _axis[0].RotateAngle(0.3f);
-        else if (actions.DiscreteActions[0] == 1) _axis[0].RotateAngle(-0.3f);
+        if (actions.DiscreteActions[0] == 1) _axis[0].RotateAngle(0.3f);
+        else if (actions.DiscreteActions[0] == 2) _axis[0].RotateAngle(-0.3f);
 
-        if (actions.DiscreteActions[1] == 0) _axis[1].RotateAngle(0.5f);
-        else if (actions.DiscreteActions[1] == 1) _axis[1].RotateAngle(-0.5f);
+        if (actions.DiscreteActions[1] == 1) _axis[1].RotateAngle(0.5f);
+        else if (actions.DiscreteActions[1] == 2) _axis[1].RotateAngle(-0.5f);
 
-        if (actions.DiscreteActions[2] == 0) _axis[3].RotateAngle(0.7f);
-        else if (actions.DiscreteActions[2] == 1) _axis[3].RotateAngle(-0.7f);
+        if (actions.DiscreteActions[2] == 1) _axis[3].RotateAngle(0.7f);
+        else if (actions.DiscreteActions[2] == 2) _axis[3].RotateAngle(-0.7f);
 
-        if (actions.DiscreteActions[3] == 0) _axis[6].RotateAngle(1f);
-
-//         _axis[0].RotateAngle(actions.ContinuousActions[0]);     // Axis0
-//         _axis[1].RotateAngle(actions.ContinuousActions[1]);     // Axis1
-//         _axis[3].RotateAngle(actions.ContinuousActions[2]);     // Axis3
-//         _axis[6].RotateAngle(Math.Abs(actions.ContinuousActions[3]));     // Axis6
+        if (actions.DiscreteActions[3] == 1) _axis[6].RotateAngle(1f);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        // (-1.0, 0.9, 0.3),(-0.4, 1.1, 0.1),0.4232951,(-0.1, 0.3, 0.1), 0.01889691  
+
         // 3 variables - vector from wheelchair to _axis[3]
         var vec_w_3 = _axis[3].transform.position - _wheelchair.transform.position;
         sensor.AddObservation(vec_w_3);
@@ -100,18 +77,17 @@ public class RobotControllerAgent : Agent
 
         // 1 variable - distance between cup and head
         float d_cup_head = Vector3.Distance(_cup.transform.position, _head.transform.position);
-        sensor.AddObservation(d_cup_head);
+        sensor.AddObservation(d_cup_head * 2.5f);
 
         // 3 variables - vector from mouse to drop_pos
         var vec_m_drop = _cup._drop_pos.position - _mouse.transform.position;
-        sensor.AddObservation(vec_m_drop);
+        sensor.AddObservation(vec_m_drop * 3.5f);
 
-//      sensor.AddObservation(_axis[0].GetAngle() / 180);// normalize
-//      sensor.AddObservation(_axis[1].GetAngle() / 180 - 0.165f);  // normalize
-//      sensor.AddObservation(_axis[3].GetAngle() / 180 - 0.19f);   // normalize
-        sensor.AddObservation((_cup._angle_cup - _cup._water_drop_angle_limit) / 45);
+        // 1 variable = angle_cup
+        float a_cup = 1 - (_cup._angle_cup - _cup._water_drop_angle_limit) / (90 - _cup._water_drop_angle_limit);
+        sensor.AddObservation(a_cup);
 
-        //Debug.Log(_axis[1].GetAngle() / 180 + ", " + _axis[3].GetAngle() / 180);
+        //Debug.Log(vec_w_3 + "," + vec_w_5 + "," + d_cup_head + "," + vec_m_drop + "," + a_cup);
     }
 
     public void Reset()
@@ -134,12 +110,14 @@ public class RobotControllerAgent : Agent
             axis.InitAngle();
         }
 
+        // init axis[0]
         _axis[0].transform.LookAt(_wheelchair.transform);
-        _axis[0].transform.Rotate(new Vector3(0, 1, 0), 45);
+        _axis[0].transform.Rotate(new Vector3(0, 1, 0), 40);
     }
+    // for collision
     public void OnFailed()
     {
-        AddReward(-1f);
+        AddReward(-1);
         EndEpisode();
 
         MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
@@ -147,14 +125,20 @@ public class RobotControllerAgent : Agent
     }
     public void OnSuccess()
     {
-        AddReward(1);   // success
+        AddReward(100);   // success
         EndEpisode();
-
-        //s_count++;
-        //Debug.Log(s_count + " Success / " + CompletedEpisodes + " episodes, episodes / success = " + CompletedEpisodes/s_count);
 
         MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
         mesh.material = _s_material;
+    }
+    // wrong drop water
+    public void OnDropWrong()
+    {
+        AddReward(-0.1f);
+        EndEpisode();
+
+        MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
+        mesh.material = _f_material;
     }
     public void OnWaterDrop(Vector3 pos)
     {
@@ -172,7 +156,7 @@ public class RobotControllerAgent : Agent
             }
             else
             {
-                OnFailed(); // out of mouse
+                OnDropWrong(); // out of mouse
             }
         }
     }
@@ -184,27 +168,31 @@ public class RobotControllerAgent : Agent
             OnFailed(); // Water drops lower than mouse's height
             return;
         }
+        if(pos.y > _mouse.transform.position.y + 0.5f)
+        {
+            OnFailed(); // prevent too high dropping
+            return;
+        }
 
         ///////////////// Reward for drop_pos position ///////////////////
         Debug.DrawLine(pos, _mouse.transform.position);
         pos.y = 0;
         var v = _mouse.transform.position; v.y = 0;
         float distance = Vector3.Distance(pos, v);
-//         if (distance > 0.3f)
-//         {
-//             OnFailed();
-//             return;
-//         }
-//         else
+        float angle_reward = 1 - (_cup._angle_cup - _cup._water_drop_angle_limit) / (90 - _cup._water_drop_angle_limit); // 0 ~ 1
+        if (distance > 0.3f)
+        {
+            OnFailed();
+            return;
+        }
+        else
         if (distance > 0.03f)
         {
             float distance_reward = 0.03f / distance; // 0 ~ 1
-            float angle_reward = (90 - _cup._angle_cup) / 90; // 0 ~ 1
             AddReward(distance_reward * angle_reward * 0.001f);
         }
         else
-        {   // above the mouse
-            float angle_reward = (90 - _cup._angle_cup) / 90; // 0 ~ 1
+        {   // around mouse
             AddReward(angle_reward * 0.01f);
         }
     }
