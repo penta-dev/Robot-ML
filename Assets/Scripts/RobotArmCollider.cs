@@ -17,6 +17,9 @@ public class RobotArmCollider : MonoBehaviour
     void OnTriggerEnterOrStay(Collider other)
     {
         // Debug.Log("Detected collision between " + gameObject.tag + " and " + other.gameObject.tag);
-        _agent.OnFailed();
+        if(!other.gameObject.CompareTag("Water"))
+        {
+            _agent.OnFailed();
+        }
     }
 }

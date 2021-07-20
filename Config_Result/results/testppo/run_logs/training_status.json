@@ -1,0 +1,371 @@
+{
+    "RobotController": {
+        "checkpoints": [
+            {
+                "steps": 497430,
+                "file_path": "results\\testppo\\RobotController\\RobotController-497430.onnx",
+                "reward": 0.01536426992311965,
+                "creation_time": 1626728656.9866285,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-497430.pt"
+                ]
+            },
+            {
+                "steps": 499985,
+                "file_path": "results\\testppo\\RobotController\\RobotController-499985.onnx",
+                "reward": -0.09795130292574565,
+                "creation_time": 1626728678.460415,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-499985.pt"
+                ]
+            },
+            {
+                "steps": 791249,
+                "file_path": "results\\testppo\\RobotController\\RobotController-791249.onnx",
+                "reward": 0.32162485480646236,
+                "creation_time": 1626729049.5107546,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-791249.pt"
+                ]
+            },
+            {
+                "steps": 999996,
+                "file_path": "results\\testppo\\RobotController\\RobotController-999996.onnx",
+                "reward": 0.24016111674000376,
+                "creation_time": 1626729335.9465764,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-999996.pt"
+                ]
+            },
+            {
+                "steps": 1381154,
+                "file_path": "results\\testppo\\RobotController\\RobotController-1381154.onnx",
+                "reward": 0.7290138356457977,
+                "creation_time": 1626729820.2669964,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-1381154.pt"
+                ]
+            },
+            {
+                "steps": 1499995,
+                "file_path": "results\\testppo\\RobotController\\RobotController-1499995.onnx",
+                "reward": 0.8314403653986879,
+                "creation_time": 1626729992.6111314,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-1499995.pt"
+                ]
+            },
+            {
+                "steps": 1999993,
+                "file_path": "results\\testppo\\RobotController\\RobotController-1999993.onnx",
+                "reward": 2.1853886604526616,
+                "creation_time": 1626730617.9859316,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-1999993.pt"
+                ]
+            },
+            {
+                "steps": 2499988,
+                "file_path": "results\\testppo\\RobotController\\RobotController-2499988.onnx",
+                "reward": 6.5725809009066,
+                "creation_time": 1626731238.6809103,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-2499988.pt"
+                ]
+            },
+            {
+                "steps": 2796450,
+                "file_path": "results\\testppo\\RobotController\\RobotController-2796450.onnx",
+                "reward": 10.077234237668026,
+                "creation_time": 1626731608.7480366,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-2796450.pt"
+                ]
+            },
+            {
+                "steps": 2999995,
+                "file_path": "results\\testppo\\RobotController\\RobotController-2999995.onnx",
+                "reward": 12.256287960552893,
+                "creation_time": 1626731878.17335,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-2999995.pt"
+                ]
+            },
+            {
+                "steps": 3090739,
+                "file_path": "results\\testppo\\RobotController\\RobotController-3090739.onnx",
+                "reward": 13.41175622292369,
+                "creation_time": 1626731993.5023234,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-3090739.pt"
+                ]
+            },
+            {
+                "steps": 3234233,
+                "file_path": "results\\testppo\\RobotController\\RobotController-3234233.onnx",
+                "reward": 18.730907440185547,
+                "creation_time": 1626732212.2079172,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-3234233.pt"
+                ]
+            },
+            {
+                "steps": 3273075,
+                "file_path": "results\\testppo\\RobotController\\RobotController-3273075.onnx",
+                "reward": 15.502985094516323,
+                "creation_time": 1626733176.1814234,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-3273075.pt"
+                ]
+            },
+            {
+                "steps": 3416561,
+                "file_path": "results\\testppo\\RobotController\\RobotController-3416561.onnx",
+                "reward": 1.5988470315933228,
+                "creation_time": 1626733517.1289973,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-3416561.pt"
+                ]
+            },
+            {
+                "steps": 3499982,
+                "file_path": "results\\testppo\\RobotController\\RobotController-3499982.onnx",
+                "reward": 20.24318610669838,
+                "creation_time": 1626735568.2959397,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-3499982.pt"
+                ]
+            },
+            {
+                "steps": 3999996,
+                "file_path": "results\\testppo\\RobotController\\RobotController-3999996.onnx",
+                "reward": 29.94390732385127,
+                "creation_time": 1626736165.6455219,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-3999996.pt"
+                ]
+            },
+            {
+                "steps": 4499989,
+                "file_path": "results\\testppo\\RobotController\\RobotController-4499989.onnx",
+                "reward": 30.215818076413505,
+                "creation_time": 1626736763.4184923,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-4499989.pt"
+                ]
+            },
+            {
+                "steps": 4999983,
+                "file_path": "results\\testppo\\RobotController\\RobotController-4999983.onnx",
+                "reward": 30.33086964379438,
+                "creation_time": 1626737371.2722836,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-4999983.pt"
+                ]
+            },
+            {
+                "steps": 5499999,
+                "file_path": "results\\testppo\\RobotController\\RobotController-5499999.onnx",
+                "reward": 30.327441115694153,
+                "creation_time": 1626737974.1887827,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-5499999.pt"
+                ]
+            },
+            {
+                "steps": 5680842,
+                "file_path": "results\\testppo\\RobotController\\RobotController-5680842.onnx",
+                "reward": 30.281226748710647,
+                "creation_time": 1626738193.697163,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-5680842.pt"
+                ]
+            },
+            {
+                "steps": 5999979,
+                "file_path": "results\\testppo\\RobotController\\RobotController-5999979.onnx",
+                "reward": 30.223235025779523,
+                "creation_time": 1626738594.3342922,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-5999979.pt"
+                ]
+            },
+            {
+                "steps": 6499992,
+                "file_path": "results\\testppo\\RobotController\\RobotController-6499992.onnx",
+                "reward": 30.336081041070162,
+                "creation_time": 1626739193.1211529,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-6499992.pt"
+                ]
+            },
+            {
+                "steps": 6999995,
+                "file_path": "results\\testppo\\RobotController\\RobotController-6999995.onnx",
+                "reward": 30.365969460490145,
+                "creation_time": 1626739792.9987745,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-6999995.pt"
+                ]
+            },
+            {
+                "steps": 7499988,
+                "file_path": "results\\testppo\\RobotController\\RobotController-7499988.onnx",
+                "reward": 30.368858939722966,
+                "creation_time": 1626740387.4456034,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-7499988.pt"
+                ]
+            },
+            {
+                "steps": 7999989,
+                "file_path": "results\\testppo\\RobotController\\RobotController-7999989.onnx",
+                "reward": 30.32330206278208,
+                "creation_time": 1626740985.4112234,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-7999989.pt"
+                ]
+            },
+            {
+                "steps": 8073796,
+                "file_path": "results\\testppo\\RobotController\\RobotController-8073796.onnx",
+                "reward": 30.340683694680532,
+                "creation_time": 1626741070.5529559,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-8073796.pt"
+                ]
+            },
+            {
+                "steps": 8499980,
+                "file_path": "results\\testppo\\RobotController\\RobotController-8499980.onnx",
+                "reward": 30.335585903681046,
+                "creation_time": 1626741593.2696347,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-8499980.pt"
+                ]
+            },
+            {
+                "steps": 8999999,
+                "file_path": "results\\testppo\\RobotController\\RobotController-8999999.onnx",
+                "reward": 30.32248278133205,
+                "creation_time": 1626742178.5402787,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-8999999.pt"
+                ]
+            },
+            {
+                "steps": 9499994,
+                "file_path": "results\\testppo\\RobotController\\RobotController-9499994.onnx",
+                "reward": 30.319191526389165,
+                "creation_time": 1626742758.7240138,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-9499994.pt"
+                ]
+            },
+            {
+                "steps": 9999987,
+                "file_path": "results\\testppo\\RobotController\\RobotController-9999987.onnx",
+                "reward": 30.32838717188881,
+                "creation_time": 1626743340.1526158,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-9999987.pt"
+                ]
+            },
+            {
+                "steps": 10499986,
+                "file_path": "results\\testppo\\RobotController\\RobotController-10499986.onnx",
+                "reward": 30.316320341354494,
+                "creation_time": 1626743925.6619477,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-10499986.pt"
+                ]
+            },
+            {
+                "steps": 10574058,
+                "file_path": "results\\testppo\\RobotController\\RobotController-10574058.onnx",
+                "reward": 30.360737800598145,
+                "creation_time": 1626744014.3144484,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-10574058.pt"
+                ]
+            },
+            {
+                "steps": 10999978,
+                "file_path": "results\\testppo\\RobotController\\RobotController-10999978.onnx",
+                "reward": 30.332696061520963,
+                "creation_time": 1626744525.0214117,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-10999978.pt"
+                ]
+            },
+            {
+                "steps": 11499991,
+                "file_path": "results\\testppo\\RobotController\\RobotController-11499991.onnx",
+                "reward": 30.356522422239006,
+                "creation_time": 1626745108.2924078,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-11499991.pt"
+                ]
+            },
+            {
+                "steps": 11718641,
+                "file_path": "results\\testppo\\RobotController\\RobotController-11718641.onnx",
+                "reward": 30.323193346590884,
+                "creation_time": 1626745362.9265232,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-11718641.pt"
+                ]
+            },
+            {
+                "steps": 11999983,
+                "file_path": "results\\testppo\\RobotController\\RobotController-11999983.onnx",
+                "reward": 30.3326585019448,
+                "creation_time": 1626745730.660832,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-11999983.pt"
+                ]
+            },
+            {
+                "steps": 12169530,
+                "file_path": "results\\testppo\\RobotController\\RobotController-12169530.onnx",
+                "reward": 30.32115364074707,
+                "creation_time": 1626745935.5192823,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-12169530.pt"
+                ]
+            },
+            {
+                "steps": 12276274,
+                "file_path": "results\\testppo\\RobotController\\RobotController-12276274.onnx",
+                "reward": 30.33656663605661,
+                "creation_time": 1626746169.678411,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-12276274.pt"
+                ]
+            },
+            {
+                "steps": 12413729,
+                "file_path": "results\\testppo\\RobotController\\RobotController-12413729.onnx",
+                "reward": 30.327772023958527,
+                "creation_time": 1626768092.5622127,
+                "auxillary_file_paths": [
+                    "results\\testppo\\RobotController\\RobotController-12413729.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 12413729,
+            "file_path": "results\\testppo\\RobotController.onnx",
+            "reward": 30.327772023958527,
+            "creation_time": 1626768092.5622127,
+            "auxillary_file_paths": [
+                "results\\testppo\\RobotController\\RobotController-12413729.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -7,18 +7,20 @@ using System.Collections.Generic;
 
 public class RobotControllerAgent : Agent
 {
+    public bool _is_training;
+    public bool _repeated_simulation;
+    private bool _frozen = false;
+
     public GameObject _wheelchair;
-    public GameObject _head;
-    public GameObject _mouse;
+    public Human _human;
     public GameObject _floor;
     public Cup _cup;
 
-    public List<Axis> _axis = new List<Axis>();
+    public Sawyer _sawyer;
     
     public Material _s_material;    // for success
     public Material _f_material;    // for failed
-
-    private float _angle_wheelchair;
+    public Material _p_material;    // for progress
 
     public override void Initialize()
     {        
@@ -26,22 +28,22 @@ public class RobotControllerAgent : Agent
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        actionsOut.DiscreteActions.Array.SetValue(0, 0);
-        actionsOut.DiscreteActions.Array.SetValue(0, 1);
-        actionsOut.DiscreteActions.Array.SetValue(0, 2);
-        actionsOut.DiscreteActions.Array.SetValue(0, 3);
+        actionsOut.ContinuousActions.Array.SetValue(0, 0);
+        actionsOut.ContinuousActions.Array.SetValue(0, 1);
+        actionsOut.ContinuousActions.Array.SetValue(0, 2);
+        actionsOut.ContinuousActions.Array.SetValue(0, 3);
 
         // Rotate
-        if (Input.GetKey(KeyCode.Q)) actionsOut.DiscreteActions.Array.SetValue(1, 0);   // Axis0 +
-        else if (Input.GetKey(KeyCode.A)) actionsOut.DiscreteActions.Array.SetValue(2, 0);   // Axis0 -
+        if (Input.GetKey(KeyCode.Q)) actionsOut.ContinuousActions.Array.SetValue(-0.3f, 0);   // Axis0 -
+        else if (Input.GetKey(KeyCode.A)) actionsOut.ContinuousActions.Array.SetValue(0.3f, 0);   // Axis0 +
 
-        if (Input.GetKey(KeyCode.W)) actionsOut.DiscreteActions.Array.SetValue(1, 1);   // Axis1 +
-        else if (Input.GetKey(KeyCode.S)) actionsOut.DiscreteActions.Array.SetValue(2, 1);   // Axis1 -
+        if (Input.GetKey(KeyCode.W)) actionsOut.ContinuousActions.Array.SetValue(-0.5f, 1);   // Axis1 -
+        else if (Input.GetKey(KeyCode.S)) actionsOut.ContinuousActions.Array.SetValue(0.5f, 1);   // Axis1 +
 
-        if (Input.GetKey(KeyCode.E)) actionsOut.DiscreteActions.Array.SetValue(1, 2);   // Axis3 +
-        else if (Input.GetKey(KeyCode.D)) actionsOut.DiscreteActions.Array.SetValue(2, 2);   // Axis3 -
+        if (Input.GetKey(KeyCode.E)) actionsOut.ContinuousActions.Array.SetValue(-0.5f, 2);   // Axis3 -
+        else if (Input.GetKey(KeyCode.D)) actionsOut.ContinuousActions.Array.SetValue(0.5f, 2);   // Axis3 +
 
-        if (Input.GetKey(KeyCode.R)) actionsOut.DiscreteActions.Array.SetValue(1, 3);   // Axis6 +
+        if (Input.GetKey(KeyCode.R)) actionsOut.ContinuousActions.Array.SetValue(0.5f, 3);   // Axis6 +
     }
 
     public override void OnEpisodeBegin()
@@ -51,16 +53,14 @@ public class RobotControllerAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        if (actions.DiscreteActions[0] == 1) _axis[0].RotateAngle(0.3f);
-        else if (actions.DiscreteActions[0] == 2) _axis[0].RotateAngle(-0.3f);
+        if (_frozen) return;
 
-        if (actions.DiscreteActions[1] == 1) _axis[1].RotateAngle(0.5f);
-        else if (actions.DiscreteActions[1] == 2) _axis[1].RotateAngle(-0.5f);
-
-        if (actions.DiscreteActions[2] == 1) _axis[3].RotateAngle(0.7f);
-        else if (actions.DiscreteActions[2] == 2) _axis[3].RotateAngle(-0.7f);
-
-        if (actions.DiscreteActions[3] == 1) _axis[6].RotateAngle(1f);
+        _sawyer.RotateAxis(0, actions.ContinuousActions[0]*0.3f);    // -1 ~ 1
+        _sawyer.RotateAxis(1, actions.ContinuousActions[1]*0.5f);    // -1 ~ 1
+        _sawyer.RotateAxis(3, actions.ContinuousActions[2]*0.5f);    // -1 ~ 1
+        
+        float a6 = (actions.ContinuousActions[3] + 1) / 2 * 0.5f;  // 0 ~ 1
+        _sawyer.RotateAxis(6, a6);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -68,133 +68,175 @@ public class RobotControllerAgent : Agent
         // (-1.0, 0.9, 0.3),(-0.4, 1.1, 0.1),0.4232951,(-0.1, 0.3, 0.1), 0.01889691  
 
         // 3 variables - vector from wheelchair to _axis[3]
-        var vec_w_3 = _axis[3].transform.position - _wheelchair.transform.position;
+        var vec_w_3 = _sawyer.AxisPos(3) - _wheelchair.transform.position;
         sensor.AddObservation(vec_w_3);
 
         // 3 variables - vector from wheelchair to _axis[5]
-        var vec_w_5 = _axis[5].transform.position - _wheelchair.transform.position;
+        var vec_w_5 = _sawyer.AxisPos(5) - _wheelchair.transform.position;
         sensor.AddObservation(vec_w_5);
 
         // 1 variable - distance between cup and head
-        float d_cup_head = Vector3.Distance(_cup.transform.position, _head.transform.position);
-        sensor.AddObservation(d_cup_head * 2.5f);
+        float d_cup_head = Vector3.Distance(_cup.transform.position, _human.GetHeadPos());
+        sensor.AddObservation(d_cup_head * 2.5f);   // normalize
 
         // 3 variables - vector from mouse to drop_pos
-        var vec_m_drop = _cup._drop_pos.position - _mouse.transform.position;
-        sensor.AddObservation(vec_m_drop * 3.5f);
+        var vec_m_drop = _cup._drop_pos.position - _human.GetMousePos();
+        sensor.AddObservation(vec_m_drop * 3.5f);   // normalize
 
         // 1 variable = angle_cup
-        float a_cup = 1 - (_cup._angle_cup - _cup._water_drop_angle_limit) / (90 - _cup._water_drop_angle_limit);
+        float a_cup = _cup._angleY / 90;
         sensor.AddObservation(a_cup);
-
-        //Debug.Log(vec_w_3 + "," + vec_w_5 + "," + d_cup_head + "," + vec_m_drop + "," + a_cup);
     }
 
     public void Reset()
     {
-        // wheelchair reset
-        // set distance from center pos, set rotationY
-        float r = 1.2f;// UnityEngine.Random.Range(1f, 1.3f);
-        float angle = UnityEngine.Random.Range(0, 2 * 3.14159f);
-
-        float x = r * (float)Math.Cos(angle) + _floor.transform.position.x;
-        float z = r * (float)Math.Sin(angle) + _floor.transform.position.z;
-        Vector3 pos = new Vector3(x, _wheelchair.transform.position.y, z);
-        _wheelchair.transform.position = pos;
-        _wheelchair.transform.LookAt(_floor.transform);
-        _wheelchair.transform.eulerAngles = new Vector3(0, _wheelchair.transform.eulerAngles.y + 180, 0);
-        
-        // init sawyer
-        foreach (Axis axis in _axis)
+        if(_is_training)
         {
-            axis.InitAngle();
+            // wheelchair position
+            float r = 1.2f;// UnityEngine.Random.Range(1f, 1.3f);
+            float angle = UnityEngine.Random.Range(0, 2 * 3.14159f);
+            float x = r * (float)Math.Cos(angle) + _floor.transform.position.x;
+            float z = r * (float)Math.Sin(angle) + _floor.transform.position.z;
+            Vector3 pos = new Vector3(x, _wheelchair.transform.position.y, z);
+            _wheelchair.transform.position = pos;
+
+            // wheelchair rotation
+            _wheelchair.transform.LookAt(_floor.transform);
+            _wheelchair.transform.eulerAngles = new Vector3(0, _wheelchair.transform.eulerAngles.y + 180, 0);
         }
 
-        // init axis[0]
-        _axis[0].transform.LookAt(_wheelchair.transform);
-        _axis[0].transform.Rotate(new Vector3(0, 1, 0), 40);
+        // reset Human
+        _human.Reset();
+
+        // reset sawyer
+        _sawyer.Reset(_wheelchair);
+
+        // reset cup
+        _cup.Reset();
     }
-    // for collision
+    
     public void OnFailed()
     {
-        AddReward(-1);
-        EndEpisode();
+        if (_is_training)
+        {
+            AddReward(-1);
+            EndEpisode();
+        }
+        else
+        {
+            if (_repeated_simulation)
+            {
+                EndEpisode();
+            }
+            else
+            {
+                _frozen = true;
+            }
+        }
 
         MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
         mesh.material = _f_material;
     }
-    public void OnSuccess()
+    void OnSuccess()
     {
-        AddReward(100);   // success
-        EndEpisode();
+        if (_is_training)
+        {
+            EndEpisode();
+        }
+        else
+        {
+            if (_repeated_simulation)
+            {
+                EndEpisode();
+            }
+            else
+            {
+                _frozen = true;
+            }
+        }
 
         MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
         mesh.material = _s_material;
     }
-    // wrong drop water
-    public void OnDropWrong()
+    void OnWrongDrop()
     {
-        AddReward(-0.1f);
-        EndEpisode();
+        if (_is_training)
+        {
+            AddReward(-0.5f);
+            EndEpisode();
+        }
+        else
+        {
+            if(_repeated_simulation)
+            {
+                EndEpisode();
+            }
+            else
+            {
+                _frozen = true;
+            }
+        }
 
         MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
         mesh.material = _f_material;
     }
-    public void OnWaterDrop(Vector3 pos)
+    void OnRightDrop()
     {
-        if (pos.y < _mouse.transform.position.y)
+        _human.EatFood(1);
+
+        if (_is_training)
+        {
+            AddReward(1f);
+        }
+
+        if (_human.IsSatisfied())
+        {
+            OnSuccess();
+        }
+        else
+        {
+            MeshRenderer mesh = _floor.GetComponent<MeshRenderer>();
+            mesh.material = _p_material;    // progress
+        }
+    }
+    public void OnWaterDrop()
+    {
+        if (_cup.GetDropPos().y < _human.GetMousePos().y)
         {
             OnFailed(); // Water drops lower than mouse's height
         }
         else
         {
-            pos.y = 0;
-            Vector3 mpos = _mouse.transform.position; mpos.y = 0;
-            if (Vector3.Distance(pos, mpos) < 0.03) // 0.03 is mouse' radius
+            float distance = GetXZDistance(_cup.GetDropPos(), _human.GetMousePos());
+            if (distance < _human.GetMouseRadius())
             {
-                OnSuccess();
+                OnRightDrop();  // drop water to mouse
             }
             else
             {
-                OnDropWrong(); // out of mouse
+                OnWrongDrop(); // out of mouse
             }
         }
     }
-    void Update()
+    void FixedUpdate()
     {
-        var pos = _cup._drop_pos.position;
-        if (pos.y < _mouse.transform.position.y)
-        {
-            OnFailed(); // Water drops lower than mouse's height
-            return;
-        }
-        if(pos.y > _mouse.transform.position.y + 0.5f)
-        {
-            OnFailed(); // prevent too high dropping
-            return;
-        }
+        if (StepCount > 500) EndEpisode();
 
-        ///////////////// Reward for drop_pos position ///////////////////
-        Debug.DrawLine(pos, _mouse.transform.position);
-        pos.y = 0;
-        var v = _mouse.transform.position; v.y = 0;
-        float distance = Vector3.Distance(pos, v);
-        float angle_reward = 1 - (_cup._angle_cup - _cup._water_drop_angle_limit) / (90 - _cup._water_drop_angle_limit); // 0 ~ 1
-        if (distance > 0.3f)
+        Debug.DrawLine(_cup.GetDropPos(), _human.GetMousePos(), Color.red); // for debug
+
+        if(_is_training)
         {
-            OnFailed();
-            return;
+            float distance = Vector3.Distance(_cup.GetDropPos(), _human.GetMousePos());
+            float distance_reward = distance < _human.GetMouseRadius() ? 1 : _human.GetMouseRadius() / distance;    // 0 ~ 1
+            float angle_reward = 1 - _cup._angleY / 90; // 0 ~ 1
+            AddReward(distance_reward * angle_reward * 0.1f);
         }
-        else
-        if (distance > 0.03f)
-        {
-            float distance_reward = 0.03f / distance; // 0 ~ 1
-            AddReward(distance_reward * angle_reward * 0.001f);
-        }
-        else
-        {   // around mouse
-            AddReward(angle_reward * 0.01f);
-        }
+    }
+    float GetXZDistance(Vector3 v1, Vector3 v2)
+    {
+        v1.y = 0;
+        v2.y = 0;
+        return Vector3.Distance(v1, v2);
     }
     
     /*

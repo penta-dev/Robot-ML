@@ -15,40 +15,54 @@ public class Cup : MonoBehaviour
     // if angle_cup is less than this value, water drops
     public float _water_drop_angle_limit;
 
-    [System.NonSerialized]
-    public float _angle_cup;
-    
-    private float _time;    // current time
-    private float _water_drop_time;
+    // Angle between Y axis and XZ flat, -90 ~ 90
+    public float _angleY;
 
-    // water drops periodically
-    public float _water_drop_dur;
+    // flag if water drops for the angle, each angle indicates one water unit, 0 ~ 90
+    private List<bool> _water;
 
     void Start()
     {
-        _time = 0;
-        _water_drop_time = 0;
-    }
-    public void UpdateProperties()
-    {
-        _angle_cup = Vector3.Angle(transform.up, new Vector3(transform.up.x, 0, transform.up.z));
-        if (transform.up.y < 0) _angle_cup = -_angle_cup;
-        //Debug.Log("Angle of cup = " + _angle_cup + "     , y = " + transform.up.y);
+        _water = new List<bool>();
+        for (int i = 0; i < 91; i++)
+            _water.Add(false);
     }
 
+    public void Reset()
+    {
+        for(int i=0;i<91;i++)
+        {
+            _water[i] = false;
+        }
+    }
+
+    public Vector3 GetDropPos()
+    {
+        return _drop_pos.transform.position;
+    }
+    
     void FixedUpdate()
     {
-        _time += Time.deltaTime;
-        UpdateProperties();
+        // update _angleY
+        _angleY = Vector3.Angle(transform.up, new Vector3(transform.up.x, 0, transform.up.z));
+        if (transform.up.y < 0) _angleY = -_angleY;
+        //Debug.Log("Angle of cup = " + _angleY + "     , y = " + transform.up.y);
 
-        if (_angle_cup < _water_drop_angle_limit)
+        if (0 < _angleY && _angleY < _water_drop_angle_limit)
         {
-            _agent.OnWaterDrop(_drop_pos.position);
-
-            if (_water_drop_time < _time)
+            int index = (int)_angleY;    // angle index
+            for (int angle = index; angle < _water_drop_angle_limit; angle++)
             {
-                //Instantiate(_water_prefab, newpos, Quaternion.Euler(0,0,0));
-                //_water_drop_time = _time + _water_drop_dur;
+                if (_water[angle] == true) break;   // already dropped
+
+                // drop water for angle
+                _water[angle] = true;
+                _agent.OnWaterDrop();
+
+                if(!_agent._is_training)
+                {
+                    Instantiate(_water_prefab, _drop_pos.position, Quaternion.Euler(0, 0, 0));
+                }
             }
         }
     }
