@@ -1,0 +1,65 @@
+{
+    "RobotController": {
+        "checkpoints": [
+            {
+                "steps": 999991,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-999991.onnx",
+                "reward": 2.0507237165286663,
+                "creation_time": 1627027568.820854,
+                "auxillary_file_paths": [
+                    "results\\drinkppo\\RobotController\\RobotController-999991.pt"
+                ]
+            },
+            {
+                "steps": 1499992,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-1499992.onnx",
+                "reward": 7.564736520353689,
+                "creation_time": 1627028231.705349,
+                "auxillary_file_paths": [
+                    "results\\drinkppo\\RobotController\\RobotController-1499992.pt"
+                ]
+            },
+            {
+                "steps": 1999988,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-1999988.onnx",
+                "reward": 23.326024343012985,
+                "creation_time": 1627028884.3097975,
+                "auxillary_file_paths": [
+                    "results\\drinkppo\\RobotController\\RobotController-1999988.pt"
+                ]
+            },
+            {
+                "steps": 2499984,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-2499984.onnx",
+                "reward": 32.0551573325902,
+                "creation_time": 1627029547.65808,
+                "auxillary_file_paths": [
+                    "results\\drinkppo\\RobotController\\RobotController-2499984.pt"
+                ]
+            },
+            {
+                "steps": 2735502,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-2735502.onnx",
+                "reward": 32.33527496504405,
+                "creation_time": 1627029862.9193609,
+                "auxillary_file_paths": [
+                    "results\\drinkppo\\RobotController\\RobotController-2735502.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2735502,
+            "file_path": "results\\drinkppo\\RobotController.onnx",
+            "reward": 32.33527496504405,
+            "creation_time": 1627029862.9193609,
+            "auxillary_file_paths": [
+                "results\\drinkppo\\RobotController\\RobotController-2735502.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

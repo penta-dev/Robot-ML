@@ -13,11 +13,10 @@ public class Human : MonoBehaviour
     private GameObject _mouse;
 
     [SerializeField]
-    private SphereCollider _head_collider;
+    private Collider _head_collider;
 
-    [SerializeField]
-    private int _max_food_amount; // max food amount
-    
+    //[SerializeField]
+    private int _max_food_amount; // max food amount    
     private int _food_amount; // food amount
 
     void Start()
