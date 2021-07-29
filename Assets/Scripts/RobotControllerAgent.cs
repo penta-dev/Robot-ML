@@ -4,6 +4,8 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Collections;
 
 public class RobotControllerAgent : Agent
 {
@@ -22,11 +24,17 @@ public class RobotControllerAgent : Agent
     public Material _f_material;    // for failed
     public Material _p_material;    // for progress
 
+    public Text _display_text;
+
     private float _dist0;   // distance between droppos to mouse at first
+    private int _success_episode_num = 0;
 
     public override void Initialize()
-    {        
-        
+    {
+        if(!_is_training && !_repeated_simulation)
+        {
+            Time.timeScale = 0.1f;
+        }
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -63,8 +71,14 @@ public class RobotControllerAgent : Agent
     public override void OnEpisodeBegin()
     {
         Reset();
+
+        // update display info
+        if (!_is_training)
+        {
+            _display_text.text = _success_episode_num + " / " + CompletedEpisodes + " - " + 100.0f * _success_episode_num / CompletedEpisodes + " %";
+        }
     }
-    
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         if (_frozen) return;
@@ -203,6 +217,8 @@ public class RobotControllerAgent : Agent
     }
     void OnSuccess()
     {
+        _success_episode_num++;
+
         if (_is_training)
         {
             EndEpisode();
