@@ -37,26 +37,20 @@ public class Sawyer : MonoBehaviour
         //_axis[0].transform.LookAt(target.transform);
         //_axis[0].transform.Rotate(new Vector3(0, 1, 0), 45);
     }
-    void FixedUpdate()
-    {
-        //Make5Horizontal();
-    }
-    // make Axis5 horizontal
-    public void Make5Horizontal()
-    {
-        float y5 = _axis[5].transform.position.y;
-        float y6 = _axis[6].transform.position.y;
-
-        // 0.01f to avoid vibration
-        if (y5 > y6 + 0.01f) _axis[5].RotateAngle(1f);
-        else if (y5 < y6 - 0.01f) _axis[5].RotateAngle(-1f);
-    }
     public void RotateAxis(int index, float angle)
     {
         _axis[index].RotateAngle(angle);
     }
+    public Axis GetAxis(int index)
+    {
+        return _axis[index];
+    }
     public Vector3 AxisPos(int index)
     {
         return _axis[index].transform.position;
+    }
+    public Vector3 AxisAngle(int index)
+    {
+        return _axis[index].transform.eulerAngles;
     }
 }

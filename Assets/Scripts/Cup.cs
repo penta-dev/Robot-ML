@@ -7,7 +7,7 @@ public class Cup : MonoBehaviour
     public RobotControllerAgent _agent;
 
     // indicate where water drops
-    public Transform _drop_pos;
+    public List<Transform> _droppos = new List<Transform>();
 
     // water prefab
     public GameObject _water_prefab;
@@ -20,6 +20,9 @@ public class Cup : MonoBehaviour
 
     // flag if water drops for the angle, each angle indicates one water unit, 0 ~ 90
     private List<bool> _water;
+
+    public Vector3 _water_droppos;    // water drop position
+    public int _drop_index;  // drop pos index
 
     void Start()
     {
@@ -34,15 +37,28 @@ public class Cup : MonoBehaviour
         {
             _water[i] = false;
         }
+
+        UpdateProperties();
     }
 
-    public Vector3 GetDropPos()
+    private void UpdateDropPos()
     {
-        return _drop_pos.transform.position;
+        _water_droppos = _droppos[0].transform.position;
+        _drop_index = 0;
+        for (int i = 0; i < _droppos.Count; i++)
+        {
+            if (_water_droppos.y > _droppos[i].position.y)
+            {
+                _water_droppos = _droppos[i].position;
+                _drop_index = i;
+            }
+        }
     }
     
-    void FixedUpdate()
+    public void UpdateProperties()
     {
+        UpdateDropPos();
+
         // update _angleY
         _angleY = Vector3.Angle(transform.up, new Vector3(transform.up.x, 0, transform.up.z));
         if (transform.up.y < 0) _angleY = -_angleY;
@@ -61,7 +77,7 @@ public class Cup : MonoBehaviour
 
                 if(!_agent._is_training)
                 {
-                    Instantiate(_water_prefab, _drop_pos.position, Quaternion.Euler(0, 0, 0));
+                    Instantiate(_water_prefab, _water_droppos, Quaternion.Euler(0, 0, 0));
                 }
             }
         }

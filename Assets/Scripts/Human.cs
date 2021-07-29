@@ -10,7 +10,7 @@ public class Human : MonoBehaviour
     private Vector3 _head_position0;
 
     [SerializeField]
-    private GameObject _mouse;
+    public GameObject _mouse;
 
     [SerializeField]
     private Collider _head_collider;

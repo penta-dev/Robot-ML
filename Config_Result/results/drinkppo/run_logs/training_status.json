@@ -2,58 +2,58 @@
     "RobotController": {
         "checkpoints": [
             {
-                "steps": 999991,
-                "file_path": "results\\drinkppo\\RobotController\\RobotController-999991.onnx",
-                "reward": 2.0507237165286663,
-                "creation_time": 1627027568.820854,
+                "steps": 1699977,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-1699977.onnx",
+                "reward": 29.408888011083476,
+                "creation_time": 1627525458.07399,
                 "auxillary_file_paths": [
-                    "results\\drinkppo\\RobotController\\RobotController-999991.pt"
+                    "results\\drinkppo\\RobotController\\RobotController-1699977.pt"
                 ]
             },
             {
-                "steps": 1499992,
-                "file_path": "results\\drinkppo\\RobotController\\RobotController-1499992.onnx",
-                "reward": 7.564736520353689,
-                "creation_time": 1627028231.705349,
+                "steps": 1799998,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-1799998.onnx",
+                "reward": 29.55619505994526,
+                "creation_time": 1627525559.176859,
                 "auxillary_file_paths": [
-                    "results\\drinkppo\\RobotController\\RobotController-1499992.pt"
+                    "results\\drinkppo\\RobotController\\RobotController-1799998.pt"
                 ]
             },
             {
-                "steps": 1999988,
-                "file_path": "results\\drinkppo\\RobotController\\RobotController-1999988.onnx",
-                "reward": 23.326024343012985,
-                "creation_time": 1627028884.3097975,
+                "steps": 1899972,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-1899972.onnx",
+                "reward": 29.45250364821283,
+                "creation_time": 1627525657.2438004,
                 "auxillary_file_paths": [
-                    "results\\drinkppo\\RobotController\\RobotController-1999988.pt"
+                    "results\\drinkppo\\RobotController\\RobotController-1899972.pt"
                 ]
             },
             {
-                "steps": 2499984,
-                "file_path": "results\\drinkppo\\RobotController\\RobotController-2499984.onnx",
-                "reward": 32.0551573325902,
-                "creation_time": 1627029547.65808,
+                "steps": 1999991,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-1999991.onnx",
+                "reward": 29.751892704876532,
+                "creation_time": 1627525754.0928276,
                 "auxillary_file_paths": [
-                    "results\\drinkppo\\RobotController\\RobotController-2499984.pt"
+                    "results\\drinkppo\\RobotController\\RobotController-1999991.pt"
                 ]
             },
             {
-                "steps": 2735502,
-                "file_path": "results\\drinkppo\\RobotController\\RobotController-2735502.onnx",
-                "reward": 32.33527496504405,
-                "creation_time": 1627029862.9193609,
+                "steps": 2003586,
+                "file_path": "results\\drinkppo\\RobotController\\RobotController-2003586.onnx",
+                "reward": 29.70281517151271,
+                "creation_time": 1627525756.4740648,
                 "auxillary_file_paths": [
-                    "results\\drinkppo\\RobotController\\RobotController-2735502.pt"
+                    "results\\drinkppo\\RobotController\\RobotController-2003586.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 2735502,
+            "steps": 2003586,
             "file_path": "results\\drinkppo\\RobotController.onnx",
-            "reward": 32.33527496504405,
-            "creation_time": 1627029862.9193609,
+            "reward": 29.70281517151271,
+            "creation_time": 1627525756.4740648,
             "auxillary_file_paths": [
-                "results\\drinkppo\\RobotController\\RobotController-2735502.pt"
+                "results\\drinkppo\\RobotController\\RobotController-2003586.pt"
             ]
         }
     },
